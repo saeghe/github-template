@@ -30,6 +30,16 @@ jobs:
           extensions: curl, mbstring, zip
           coverage: none
 
+      - name: Add SSH key
+        uses: webfactory/ssh-agent@v0.6.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Install dependencies
+        run: |
+          git submodule init
+          git submodule update
+
       - name: Install Saeghe
         run: bash -c "$(curl -fsSL https://raw.github.com/saeghe/installation/master/install.sh)"
 
